@@ -3,11 +3,6 @@ variable "tags" {
   default = []
 }
 
-variable "mnq_nats_account" {
-  type    = string
-  default = null
-}
-
 variable "function" {
   type = list(object({
     handler                      = string
@@ -33,7 +28,6 @@ variable "function" {
     hostname                     = optional(string)
     expires_at                   = optional(string)
   }))
-  default = []
 
   validation {
     condition     = alltrue([for a in var.function : contains(["enabled", "restricted"])])
