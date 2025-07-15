@@ -2,7 +2,7 @@ resource "scaleway_function_namespace" "this" {
   for_each                     = { for a in var.function : a.namespace_name != null ? a.name : null => a if a.namespace_name != null }
   name                         = join("-", [each.value.name, "namespace"])
   description                  = each.value.description
-  tags                         = merge(var.tags, each.value.tags)
+  tags                         = concat(var.tags, each.value.tags)
   region                       = each.value.region
   project_id                   = data.scaleway_account_project.this.project_id
   environment_variables        = each.value.environment_variables
